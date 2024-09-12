@@ -1,10 +1,12 @@
 import org.example.BuscaHorario;
 import org.example.HorarioAtendimento;
 import org.example.HorarioServico;
+import org.example.CampoObrigatorioAusenteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
@@ -152,7 +154,7 @@ public class TesteBuscaHorario {
     @Test
     public void testMenorSala_Sucesso() {
         when(horarioServicoMock.buscaHorario(8)).thenReturn(
-                "{\"nomeDoProfessor\": \"Prof. Fred\", \"horarioDeAtendimento\": \"10:00 - 11:30\", \"periodo\": \"matutino\", \"sala\": \"1\", \"predio\": [1]}"
+                "{\"nomeDoProfessor\": \"Prof. Fred\", \"horarioDeAtendimento\": \"10:00 - 11:30\", \"periodo\": \"matutino\", \"sala\": \"1\"}"
         );
 
         HorarioAtendimento horario = buscaHorario.buscaHorarioProfessor(8);
@@ -173,5 +175,29 @@ public class TesteBuscaHorario {
         // Teste para verificar se pegar a maior sala funciona corretamente
         assertEquals(25, horario.getSala());
         assertEquals(6, horario.getPredio());
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_JSONSemNome() {
+        when(horarioServicoMock.buscaHorario(15)).thenReturn(
+                "{\"horarioDeAtendimento\": \"21:00 - 23:00\", \"periodo\": \"noturno\", \"sala\": \"5\"}"
+        );
+
+        // Teste para verificar se a exception está correta se faltar o nome do professor
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(15);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_SalaNegativa() {
+        when(horarioServicoMock.buscaHorario(16)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Chris\", \"horarioDeAtendimento\": \"17:00 - 19:00\", \"periodo\": \"integral\", \"sala\": \"-3\"}"
+        );
+
+        HorarioAtendimento horario = buscaHorario.buscaHorarioProfessor(16);
+
+        // Teste para verificar se o prédio/sala é inválido
+        assertEquals(0, horario.getPredio());
     }
 }

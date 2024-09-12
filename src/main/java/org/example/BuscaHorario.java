@@ -23,6 +23,20 @@ public class BuscaHorario {
         // Faz o parsing do JSON recebido
         JsonObject jsonObject = JsonParser.parseString(horarioJson).getAsJsonObject();
 
+        // Verifica se os campos obrigatórios do json
+        if (!jsonObject.has("nomeDoProfessor")) {
+            throw new CampoObrigatorioAusenteException("Campo 'Nome do Professor' está ausente no JSON.");
+        }
+        if (!jsonObject.has("horarioDeAtendimento")) {
+            throw new CampoObrigatorioAusenteException("Campo 'Horario de Atendimento' está ausente no JSON.");
+        }
+        if (!jsonObject.has("periodo")) {
+            throw new CampoObrigatorioAusenteException("Campo 'Periodo' está ausente no JSON.");
+        }
+        if (!jsonObject.has("sala")) {
+            throw new CampoObrigatorioAusenteException("Campo 'Sala' está ausente no JSON.");
+        }
+
         // Identifica o prédio com base no número da sala
         int sala = jsonObject.get("sala").getAsInt();
         int predio = determinaPredio(sala);
