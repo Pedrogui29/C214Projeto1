@@ -35,7 +35,7 @@ public class TesteBuscaHorario {
         assertEquals("Prof. João", horario.getNomeDoProfessor());
         assertEquals("10:00 - 12:00", horario.getHorarioDeAtendimento());
         assertEquals("integral", horario.getPeriodo());
-        assertEquals("3", horario.getSala());
+        assertEquals(3, horario.getSala());
         assertEquals(1, horario.getPredio());
     }
 

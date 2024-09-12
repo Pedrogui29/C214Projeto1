@@ -15,8 +15,12 @@ public class BuscaHorario {
         // Busca o horário do professor a partir do id
         String horarioJson = horarioServico.buscaHorario(idProfessor);
 
-        // Faz o parsing do JSON recebido
+        // Verifica se o JSON retornado é nulo e retrona null se não tiver nenhum dado
+        if (horarioJson == null) {
+            return null;
+        }
 
+        // Faz o parsing do JSON recebido
         JsonObject jsonObject = JsonParser.parseString(horarioJson).getAsJsonObject();
 
         // Identifica o prédio com base no número da sala
