@@ -148,4 +148,30 @@ public class TesteBuscaHorario {
         assertEquals("Prof. Teste", horario.getNomeDoProfessor());
         assertEquals(2, horario.getPredio());
     }
+
+    @Test
+    public void testMenorSala_Sucesso() {
+        when(horarioServicoMock.buscaHorario(8)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Fred\", \"horarioDeAtendimento\": \"10:00 - 11:30\", \"periodo\": \"matutino\", \"sala\": \"1\", \"predio\": [1]}"
+        );
+
+        HorarioAtendimento horario = buscaHorario.buscaHorarioProfessor(8);
+
+        // Teste para verificar se pegar a menor sala funciona corretamente
+        assertEquals(1, horario.getSala());
+        assertEquals(1, horario.getPredio());
+    }
+
+    @Test
+    public void testMaiorSala_Sucesso() {
+        when(horarioServicoMock.buscaHorario(9)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Carlos\", \"horarioDeAtendimento\": \"15:00 - 17:00\", \"periodo\": \"integral\", \"sala\": \"25\"}"
+        );
+
+        HorarioAtendimento horario = buscaHorario.buscaHorarioProfessor(9);
+
+        // Teste para verificar se pegar a maior sala funciona corretamente
+        assertEquals(25, horario.getSala());
+        assertEquals(6, horario.getPredio());
+    }
 }
