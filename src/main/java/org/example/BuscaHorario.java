@@ -41,8 +41,15 @@ public class BuscaHorario {
             return 1;
         } else if (sala >= 6 && sala <= 10) {
             return 2;
-        } else {
-            return (sala - 1) / 5 + 1;
+        } else if (sala >=11 && sala <=15){
+            return 3;
+        }else if (sala >= 16 && sala <= 20) {
+            return 4;
+        } else if(sala >= 21 && sala <= 25) {
+            return 6;
+        }
+        else{
+            return 0;
         }
     }
 

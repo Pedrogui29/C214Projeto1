@@ -11,9 +11,9 @@ public class HorarioServicoImpl extends HorarioServico {
     // Construtor para popular os dados iniciais dos professores
     public HorarioServicoImpl() {
         // Simulando dados de professores com IDs
-        professores.put(1, "{\"nomeDoProfessor\": \"Prof. João\", \"horarioDeAtendimento\": \"10:00 - 12:00\", \"periodo\": \"integral\", \"sala\": \"3\", \"predio\": [1]}");
-        professores.put(2, "{\"nomeDoProfessor\": \"Prof. Maria\", \"horarioDeAtendimento\": \"14:00 - 16:00\", \"periodo\": \"noturno\", \"sala\": \"7\", \"predio\": [2]}");
-        professores.put(3, "{\"nomeDoProfessor\": \"Prof. Pedro\", \"horarioDeAtendimento\": \"09:00 - 11:00\", \"periodo\": \"integral\", \"sala\": \"2\", \"predio\": [1]}");
+        professores.put(1, "{\"nomeDoProfessor\": \"Prof. Yvo\", \"horarioDeAtendimento\": \"10:00 - 12:00\", \"periodo\": \"integral\", \"sala\": \"3\", \"predio\": [1]}");
+        professores.put(2, "{\"nomeDoProfessor\": \"Prof. Renzo\", \"horarioDeAtendimento\": \"14:00 - 16:00\", \"periodo\": \"noturno\", \"sala\": \"7\", \"predio\": [2]}");
+        professores.put(3, "{\"nomeDoProfessor\": \"Prof. Chris\", \"horarioDeAtendimento\": \"09:00 - 11:00\", \"periodo\": \"integral\", \"sala\": \"2\", \"predio\": [1]}");
         // Adicione mais professores conforme necessário
     }
 
