@@ -1,7 +1,7 @@
 package org.example;
 
 public class HorarioServico {
-    String buscaHorario(int idProfessor) {
+    public String buscaHorario(int idProfessor) {
         return null;
     }
 
