@@ -37,14 +37,27 @@ public class BuscaHorario {
             throw new CampoObrigatorioAusenteException("Campo 'Sala' está ausente no JSON.");
         }
 
+        // Normaliza os valores removendo espacos extras do inicio e do final
+        String nomeDoProfessor = jsonObject.get("nomeDoProfessor").getAsString().trim();
+        String horarioDeAtendimento = jsonObject.get("horarioDeAtendimento").getAsString().trim();
+        String periodo = jsonObject.get("periodo").getAsString().trim();
+
+        int sala;
+        try {
+            // Converte do campo sala para int
+            sala = jsonObject.get("sala").getAsInt();
+        } catch (NumberFormatException e) {
+            // Lanca uma exception personalizada se sala for invalido
+            throw new CampoObrigatorioAusenteException("O valor do campo 'Sala' é inválido: deve ser um número.");
+        }
+
         // Identifica o prédio com base no número da sala
-        int sala = jsonObject.get("sala").getAsInt();
         int predio = determinaPredio(sala);
 
         return new HorarioAtendimento(
-                jsonObject.get("nomeDoProfessor").getAsString(),
-                jsonObject.get("horarioDeAtendimento").getAsString(),
-                jsonObject.get("periodo").getAsString(),
+                nomeDoProfessor,
+                horarioDeAtendimento,
+                periodo,
                 sala,
                 predio
         );

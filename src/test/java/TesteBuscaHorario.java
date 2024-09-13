@@ -200,4 +200,82 @@ public class TesteBuscaHorario {
         // Teste para verificar se o prédio/sala é inválido
         assertEquals(0, horario.getPredio());
     }
+
+    @Test
+    public void testBuscaHorarioProfessor_JSONSemHorario() {
+        when(horarioServicoMock.buscaHorario(17)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Soned\", \"periodo\": \"noturno\", \"sala\": \"15\"}"
+        );
+
+        // Teste para verificar se a exception está correta se faltar o horario de atendimento do professor
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(17);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_JSONSemPeriodo() {
+        when(horarioServicoMock.buscaHorario(18)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Felipe\", \"horarioDeAtendimento\": \"13:00 - 15:00\", \"sala\": \"11\"}"
+        );
+
+        // Teste para verificar se a exception está correta se faltar o periodo do professor
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(18);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_JSONSemSala() {
+        when(horarioServicoMock.buscaHorario(19)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Rafael\", \"horarioDeAtendimento\": \"08:00 - 10:00\", \"periodo\": \"matutino\"}"
+        );
+
+        // Teste para verificar se a exception está correta se faltar a sala do professor
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(19);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_JSONSemDoisCampos() {
+        when(horarioServicoMock.buscaHorario(20)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Paula\", \"periodo\": \"integral\"}"
+        );
+
+        // Teste para verificar se a exception está correta se faltar dois campos
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(20);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_SalaStringInvalida() {
+        when(horarioServicoMock.buscaHorario(21)).thenReturn(
+                "{\"nomeDoProfessor\": \"Prof. Ana\", \"horarioDeAtendimento\": \"12:00 - 14:00\", \"periodo\": \"vespertino\", \"sala\": \"Sala X\"}"
+        );
+
+        // Teste para verificar se a exception está correta se a sala for inválida
+        assertThrows(CampoObrigatorioAusenteException.class, () -> {
+            buscaHorario.buscaHorarioProfessor(21);
+        });
+    }
+
+    @Test
+    public void testBuscaHorarioProfessor_CamposComEspacos_Sucesso() {
+        when(horarioServicoMock.buscaHorario(30)).thenReturn(
+                "{\"nomeDoProfessor\": \" Prof. Victoria \", \"horarioDeAtendimento\": \" 09:00 - 11:00 \", \"periodo\": \" integral \", \"sala\": \"15\"}"
+        );
+
+        HorarioAtendimento horario = buscaHorario.buscaHorarioProfessor(30);
+
+        // Teste para verificar se mesmo os campos com espacos extras a logica funciona corretamente
+        assertEquals("Prof. Victoria", horario.getNomeDoProfessor());
+        assertEquals("09:00 - 11:00", horario.getHorarioDeAtendimento());
+        assertEquals("integral", horario.getPeriodo());
+        assertEquals(15, horario.getSala());
+        assertEquals(3, horario.getPredio());
+    }
+
+
 }
