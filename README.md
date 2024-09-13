@@ -6,9 +6,8 @@ Este projeto visa implementar e testar uma aplicação de gerenciamento de horá
 
 ## Alunos
 
-- Lucas Mendes Ribeiro do Couto
-- João Lucas Gonçalves de Souza
 - Pedro Guilherme Fernandes Oliveira
+- Lucas Mendes Ribeiro do Couto
 
 ## Estrutura do Projeto
 
@@ -17,6 +16,7 @@ Este projeto visa implementar e testar uma aplicação de gerenciamento de horá
 - **`BuscaHorario`**: Responsável por buscar o horário de atendimento do professor e determinar o prédio com base na sala.
 - **`HorarioAtendimento`**: Representa as informações de horário de atendimento de um professor.
 - **`HorarioServico`**: Interface para o serviço que fornece as informações de horário de atendimento.
+- **`CampoObrigatorioAusenteException`**: Responsável pela exception personalizada se houver algum campo ausente ou inválido.
 
 ### Testes
 
