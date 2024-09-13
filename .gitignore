@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Ignorar a pasta target gerada pelo Maven
+target/
+# Ignorar arquivos de configuração do IntelliJ IDEA
+.idea/
+# Ignorar arquivos de configuração do Maven
+*.log
+*.tmp
+# Ignorar outros arquivos e pastas comuns
+*.class
+*.jar
+*.war
+*.ear
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
